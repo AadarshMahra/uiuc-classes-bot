@@ -4,10 +4,9 @@ import discord
 import re
 import asyncio
 
-TOKEN = ''
 
-with open('config.txt', 'r') as f:
-   TOKEN = f.readline().strip()
+# with open('config.txt', 'r') as f:
+#     TOKEN = f.readline().strip()
 
 bot = commands.Bot(command_prefix=('c!', 'C!'), case_insensitive=True, help_command=None)
 messages = []
@@ -47,12 +46,12 @@ async def update_messages():
 # Parse every message
 @bot.event
 async def on_message(message):
+    # Make sure the bot does not respond to its own messages.
     if message.author.bot:
         return
     print(message.content)
     global messages
     messages += message.content
-    # Make sure the bot does not respond to its own messages.
 
 # AADARSH :
 #     global messages
@@ -120,10 +119,7 @@ async def await_usercount(ctx):
     guilds = len(bot.guilds)
     await ctx.send('Online with {} servers and {} total members.'.format(guilds, members))
 
-# update_messages = asyncio.coroutine(update_messages)
-
 
 # Run the bot.
-bot.loop.create_task(update_messages())
-bot.run(TOKEN.strip())
-
+# bot.loop.create_task(update_messages())
+bot.run('NzIzNDMyOTgwNzI2NTQ2NDUz.XvJHKw.gIMwOXJrEeZnnkLUDtE8fj_dpMg'.strip())
