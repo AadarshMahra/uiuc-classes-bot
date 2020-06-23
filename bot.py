@@ -5,8 +5,8 @@ import re
 import asyncio
 
 
-# with open('config.txt', 'r') as f:
-#     TOKEN = f.readline().strip()
+with open('config.txt', 'r') as f:
+    TOKEN = f.readline().strip()
 
 bot = commands.Bot(command_prefix=('c!', 'C!'), case_insensitive=True, help_command=None)
 messages = []
@@ -122,4 +122,4 @@ async def await_usercount(ctx):
 
 # Run the bot.
 # bot.loop.create_task(update_messages())
-bot.run('NzIzNDMyOTgwNzI2NTQ2NDUz.XvJHKw.gIMwOXJrEeZnnkLUDtE8fj_dpMg'.strip())
+
