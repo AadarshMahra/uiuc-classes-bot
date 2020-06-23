@@ -122,4 +122,5 @@ async def await_usercount(ctx):
 
 # Run the bot.
 # bot.loop.create_task(update_messages())
+bot.run(TOKEN.strip())
 
