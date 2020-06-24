@@ -2,11 +2,11 @@ from utils.functions import send_class
 from discord.ext import commands, tasks
 import discord
 import re
-import asyncio
 
+TOKEN = ''
 
 with open('config.txt', 'r') as f:
-    TOKEN = f.readline().strip()
+   TOKEN = f.readline().strip()
 
 bot = commands.Bot(command_prefix=('c!', 'C!'), case_insensitive=True, help_command=None)
 messages = []
@@ -22,47 +22,20 @@ async def on_ready():
 
     print('In {} guilds'.format(len(bot.guilds)))
     members = sum([guild.member_count for guild in bot.guilds])
-    print('Serving a total amount of {} members'.format(members))
+    for guild in bot.guilds:
+        print('In {}, with owner {}'.format(guild.name, guild.owner))
+        # print('Guild permissions: {}'.format(guild.me.guild_permissions))
+    print('Serving a total of {} members'.format(members))
     # Set status
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='c!info'))
 
 
-# AADARSH
-async def update_messages():
-    await bot.wait_until_ready()
-    global messages
-    # while the bot is running, we're going to continue to do what's in here
-    while not bot.is_closed():
-        if messages:
-            try:
-                print('accessed')
-                print(messages)
-                messages.pop(0)
-                await asyncio.sleep(5)
-            except IndexError:
-                pass
-# ****************
-
 # Parse every message
 @bot.event
 async def on_message(message):
-    # Make sure the bot does not respond to its own messages.
     if message.author.bot:
         return
-    print(message.content)
-    global messages
-    messages += message.content
 
-# AADARSH :
-#     global messages
-#     await message.channel.send(message.content)
-#     for prev_message, prev_server in messages:
-#         if prev_message == message.content and prev_server == message.guild:
-#             await message.channel.send('Someone has recently requested this class.')
-#             return  # do not continue with rest of function. message is invalid, so no need to fetch data
-#         else:
-#             messages += (message.content, message.guild)
-# ************************
     # TODO Move string parsing to helper function
     potential_message = '[' and ']' in message.content
     classes = []
@@ -121,6 +94,5 @@ async def await_usercount(ctx):
 
 
 # Run the bot.
-# bot.loop.create_task(update_messages())
 bot.run(TOKEN.strip())
 
